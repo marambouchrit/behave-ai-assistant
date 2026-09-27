@@ -1,0 +1,24 @@
+# Environnements virtuels
+venv/
+.venv/
+
+# Secrets et sauvegardes de base (données utilisateurs)
+.env
+backup_*.sql
+
+# Données générées (ChromaDB)
+data/chroma_db/
+
+# Documents internes Siryos (confidentiels)
+data/documents/
+**/data/chroma_db/
+data/uploaded_docs/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/

@@ -1,0 +1,39 @@
+# ============================================================
+# requirements.txt — BeHave AI Chatbot
+# ============================================================
+# Installation : pip install -r requirements.txt
+
+# --- LLM ---
+groq>=1.5.0                      # API Groq (openai/gpt-oss-20b)
+
+# --- Vector Store & Embeddings ---
+chromadb>=1.5.0                  # Base vectorielle persistante
+sentence-transformers>=5.0.0     # Modèle d'embedding
+langchain-text-splitters>=1.1.0  # RecursiveCharacterTextSplitter (chunking)
+
+# --- Parsing de documents ---
+python-docx>=1.1.0               # Lecture des fichiers DOCX
+PyPDF2>=3.0.0                    # Extraction texte PDF
+PyYAML>=6.0                      # Manifeste des documents (data/manifest.yaml)
+
+# --- Backend API ---
+fastapi>=0.115.0                 # Framework API REST
+uvicorn[standard]>=0.30.0        # Serveur ASGI
+python-multipart>=0.0.9          # Upload de fichiers (admin)
+pydantic>=2.7.0                  # Validation des données
+pydantic-settings>=2.4.0         # Configuration centralisée (config.py)
+
+# --- Base de données ---
+SQLAlchemy>=2.0.0                # ORM
+psycopg2-binary>=2.9.0           # Driver PostgreSQL
+alembic>=1.13.0                  # Migrations du schéma
+
+# --- Authentification ---
+python-jose[cryptography]>=3.3.0 # JWT
+passlib[bcrypt]>=1.7.4           # Hachage des mots de passe
+bcrypt==4.0.1                    # Épinglé : passlib 1.7.4 incompatible avec bcrypt>=4.1
+slowapi>=0.1.9                   # Limite de tentatives sur /auth/login
+
+# --- Dev & Tests ---
+pytest>=8.0.0
+httpx>=0.27.0                    # Requis par fastapi.testclient

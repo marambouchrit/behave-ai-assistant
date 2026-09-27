@@ -1,0 +1,282 @@
+# Jeu d'évaluation du retrieval BeHave.
+#
+# Rédigé à partir du contenu réel des guides indexés — À RELIRE ET ENRICHIR,
+# idéalement avec de vraies questions d'utilisateurs.
+#
+# Chaque question :
+#   id        : identifiant stable
+#   question  : texte posé par l'utilisateur
+#   in_scope  : true si la documentation contient la réponse
+#   kind      : (hors périmètre) "easy" = sans rapport, "hard" = domaine proche
+#   expected  : (dans le périmètre) emplacements qui contiennent la réponse ;
+#               un chunk est correct s'il vient de `document` ET, si précisé,
+#               si sa section contient l'un des `sections` (sous-chaîne,
+#               insensible à la casse) ou si sa page est dans `pages`.
+#
+# Métriques : python -m evaluation.run_eval
+
+questions:
+
+  # ── BeHave Master Data (DOCX, français) ──────────────────────────────────
+  - id: md-template-client
+    question: Comment générer le template Excel pour créer un client ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Génération de Template Excel]
+  - id: md-run-id
+    question: À quoi sert le RUN_ID dans le fichier Excel de Master Data ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Remplissage de template excel]
+  - id: md-envoi-agent
+    question: Comment envoyer le fichier Excel rempli à l'agent IA ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Envoi du fichier Excel rempli, Lancement des créations]
+  - id: md-fournisseur
+    question: Quelle est la procédure pour créer un fournisseur ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Création de Fournisseur]
+  - id: md-articles
+    question: Comment créer des articles (materials) avec BeHave Master Data ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Création de Articles]
+  - id: md-centre-cout
+    question: Comment créer un centre de coût ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Centre de profit et Centre de Cout]
+  - id: md-hcm-en
+    question: Can I create HCM data with Master Data?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Création de HCM]
+  - id: md-definition
+    question: Qu'est-ce que BeHave Master Data ?
+    in_scope: true
+    expected:
+      - document: BeHave_Master_Data_User_Guide.docx
+        sections: [Introduction]
+
+  # ── BeHave Predictive (DOCX, anglais) ────────────────────────────────────
+  - id: pred-modeles-fr
+    question: Quels modèles de prévision propose BeHave Predictive ?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Creating Your First Forecast, Best Practices]
+  - id: pred-format-fichier
+    question: What file format is required to upload sales data?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Creating Your First Forecast, Troubleshooting]
+  - id: pred-statut-failed-fr
+    question: Que signifie le statut Failed d'un job de prévision ?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Monitoring Your Forecast]
+  - id: pred-metriques
+    question: How is forecast accuracy measured?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Understanding Your Results, Frequently Asked Questions, Glossary]
+  - id: pred-public
+    question: Who is Behave Predictive designed for?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [The 5 W's]
+  - id: pred-admin-compte-fr
+    question: Comment un administrateur crée-t-il un compte utilisateur dans Predictive ?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Administrator Features]
+  - id: pred-upload-echec
+    question: My CSV file won't upload, what should I do?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Troubleshooting]
+  - id: pred-historique-fr
+    question: Combien d'années d'historique faut-il pour une prévision fiable ?
+    in_scope: true
+    expected:
+      - document: Behave_Predictive_User_Guide_FINAL_COMPLETE.docx
+        sections: [Best Practices]
+
+  # ── BeHave SAP Extraction (PDF, français) ────────────────────────────────
+  - id: sap-transaction
+    question: Quelle transaction SAP utiliser pour extraire les tables ?
+    in_scope: true
+    expected:
+      - document: User_Guide_Extraction_des_données_SAP.pdf
+        pages: [5, 7]
+  - id: sap-mandant
+    question: Quelle valeur mettre dans le champ Mandant lors de la connexion à SAP Logon ?
+    in_scope: true
+    expected:
+      - document: User_Guide_Extraction_des_données_SAP.pdf
+        pages: [4]
+  - id: sap-agr-users
+    question: À quoi sert la table AGR_USERS ?
+    in_scope: true
+    expected:
+      - document: User_Guide_Extraction_des_données_SAP.pdf
+        pages: [3]
+  - id: sap-logs-securite
+    question: Comment extraire les logs de sécurité RSAU_BUF_DATA ?
+    in_scope: true
+    expected:
+      - document: User_Guide_Extraction_des_données_SAP.pdf
+        pages: [7, 8]
+  - id: sap-meme-date
+    question: Pourquoi faut-il extraire tous les fichiers à la même date ?
+    in_scope: true
+    expected:
+      - document: User_Guide_Extraction_des_données_SAP.pdf
+        pages: [7]
+
+  # ── BeHave Analytics / Power BI (PDF, français) ──────────────────────────
+  - id: pbi-score-calcul
+    question: Comment est calculé le BeHave Conformity Score ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [7, 8]
+  - id: pbi-score-25
+    question: Que signifie un score de conformité inférieur ou égal à 25 ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [8]
+  - id: pbi-actions-correctives
+    question: Que montre le tableau de bord Corrective Actions Analysis ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [12, 13]
+  - id: pbi-user-360
+    question: Qu'est-ce que l'onglet User 360° ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [14]
+  - id: pbi-roles-redondants
+    question: Comment identifier les rôles redondants d'un utilisateur ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [17, 28]
+  - id: pbi-licences
+    question: Quelles informations affiche le tableau des licences utilisateurs ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [20, 21]
+  - id: pbi-roles-non-assignes
+    question: Comment repérer les rôles qui ne sont assignés à aucun utilisateur ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [26]
+  - id: pbi-unlocking-en
+    question: What does the Unlocking Anomalies dashboard show?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [50, 51, 52]
+  - id: pbi-login-anomalies
+    question: Comment détecter les connexions à des heures inhabituelles ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [50, 53]
+  - id: pbi-terminal-suspect
+    question: Qu'est-ce qu'un terminal suspect dans BeHave ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [50, 55]
+  - id: pbi-sod-risque-violation
+    question: Quelle est la différence entre un risque SoD et une violation SoD ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [8, 9, 64, 65, 66]
+  - id: pbi-comptes-inactifs
+    question: Comment voir les comptes inactifs et leur nombre de jours d'inactivité ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [58, 59, 60]
+  - id: pbi-tcodes-sans-objet
+    question: Quelles transactions n'ont pas d'objet d'autorisation associé ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [39, 40]
+  - id: pbi-clusters
+    question: Que présente le tableau de bord Users Clusters ?
+    in_scope: true
+    expected:
+      - document: User_Guide_PBI_BeHave.pdf
+        pages: [48, 49, 50]
+
+  # ── BeHave Access (PDF, anglais) ─────────────────────────────────────────
+  - id: acc-definition
+    question: What is BeHave Access?
+    in_scope: true
+    expected:
+      - document: User_Guide_présentation_de_la_solution_BeHave_access.pdf
+        pages: [2]
+  - id: acc-upload-config-fr
+    question: Comment téléverser les fichiers de configuration SAP dans BeHave Access ?
+    in_scope: true
+    expected:
+      - document: User_Guide_présentation_de_la_solution_BeHave_access.pdf
+        pages: [2]
+  - id: acc-notifications-fr
+    question: Comment configurer des notifications email sur les transactions sensibles ?
+    in_scope: true
+    expected:
+      - document: User_Guide_présentation_de_la_solution_BeHave_access.pdf
+        pages: [3]
+  - id: acc-avantages-fr
+    question: Quels sont les principaux avantages de BeHave Access ?
+    in_scope: true
+    expected:
+      - document: User_Guide_présentation_de_la_solution_BeHave_access.pdf
+        pages: [4]
+
+  # ── Hors périmètre : sans rapport ────────────────────────────────────────
+  - {id: out-bonjour,     question: "Bonjour",                                  in_scope: false, kind: easy}
+  - {id: out-merci,       question: "Merci pour ton aide !",                    in_scope: false, kind: easy}
+  - {id: out-capitale,    question: "Quelle est la capitale de l'Australie ?",  in_scope: false, kind: easy}
+  - {id: out-crepes,      question: "Donne-moi une recette de crêpes",          in_scope: false, kind: easy}
+  - {id: out-foot,        question: "Qui a gagné la coupe du monde 2018 ?",     in_scope: false, kind: easy}
+  - {id: out-poeme,       question: "Écris un poème sur la mer",                in_scope: false, kind: easy}
+  - {id: out-meteo,       question: "What's the weather like today?",           in_scope: false, kind: easy}
+  - {id: out-relativite,  question: "Explique la théorie de la relativité",     in_scope: false, kind: easy}
+  - {id: out-calcul,      question: "Combien font 12 fois 7 ?",                 in_scope: false, kind: easy}
+  - {id: out-film,        question: "Quel est le meilleur film de 2020 ?",      in_scope: false, kind: easy}
+
+  # ── Hors périmètre : domaine proche (informatique, SAP, Excel) ───────────
+  - {id: hard-python,     question: "Comment installer Python sur Windows ?",                      in_scope: false, kind: hard}
+  - {id: hard-wifi,       question: "Comment configurer un routeur Wi-Fi ?",                       in_scope: false, kind: hard}
+  - {id: hard-sap-mm,     question: "Comment créer une commande d'achat dans SAP MM ?",            in_scope: false, kind: hard}
+  - {id: hard-excel-tcd,  question: "Comment faire un tableau croisé dynamique dans Excel ?",       in_scope: false, kind: hard}
+  - {id: hard-premiere,   question: "Comment exporter une vidéo dans Premiere Pro ?",              in_scope: false, kind: hard}
+  - {id: hard-prix,       question: "Quel est le prix d'une licence BeHave ?",                     in_scope: false, kind: hard}

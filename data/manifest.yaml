@@ -1,0 +1,20 @@
+documents:
+  BeHave_Master_Data_User_Guide.docx:
+    module: BeHave Master Data
+  Behave_Predictive_User_Guide_FINAL_COMPLETE.docx:
+    module: BeHave Predictive
+  User_Guide_Extraction_des_données_SAP.pdf:
+    module: BeHave SAP Extraction
+    title: Guide utilisateur — Extraction des données SAP
+  User_Guide_PBI_BeHave.pdf:
+    module: BeHave Analytics (Power BI)
+    title: Guide utilisateur — BeHave Analytics (Power BI)
+  User_Guide_présentation_de_la_solution_BeHave_access.pdf:
+    module: BeHave Access
+    title: Présentation de la solution BeHave Access
+  behave_analytics_guide.txt:
+    module: BeHave Analytics (Power BI)
+    title: Guide utilisateur - BeHave Analytics
+  test_document.pdf:
+    module: BeHave Predictive
+    title: guidePedictive

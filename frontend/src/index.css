@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+/* Charte BeHave : utilisables comme classes Tailwind (bg-behave-navy, text-behave-cyan…). */
+@theme {
+  --color-behave-navy:      #2D3A8C;
+  --color-behave-navy-dark: #233070;
+  --color-behave-sidebar:   #1E2A6E;
+  --color-behave-cyan:      #29B6E8;
+  --color-behave-cyan-dark: #1FA3D5;
+  --color-behave-page:      #F0F4FA;
+  --color-behave-chat:      #EEF2F7;
+  --color-behave-soft:      #E8F0FB;
+}
