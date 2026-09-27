@@ -12,9 +12,3 @@ documents:
   User_Guide_présentation_de_la_solution_BeHave_access.pdf:
     module: BeHave Access
     title: Présentation de la solution BeHave Access
-  behave_analytics_guide.txt:
-    module: BeHave Analytics (Power BI)
-    title: Guide utilisateur - BeHave Analytics
-  test_document.pdf:
-    module: BeHave Predictive
-    title: guidePedictive

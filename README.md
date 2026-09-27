@@ -20,6 +20,7 @@ section), lus dans les métadonnées de l'index, jamais générés par le LLM.
 | Reranking | Cross-encoder `cross-encoder/mmarco-mMiniLMv2-L12-H384-v1` |
 | LLM | Groq API (`openai/gpt-oss-20b`) |
 | Configuration | pydantic-settings (`config.py`, `.env`) |
+| Déploiement | Docker Compose (API, nginx, PostgreSQL) |
 | Authentification | JWT (HS256), rôles utilisateur / administrateur |
 
 ## Architecture du pipeline
@@ -58,6 +59,9 @@ Choix structurants :
 behave-chatbot/
 ├── config.py                  # Configuration centralisée (pydantic-settings)
 ├── alembic.ini                # Migrations du schéma PostgreSQL
+├── docker-compose.yml         # Stack complète : api, frontend (nginx), db
+├── Dockerfile                 # Image de l'API (modèles intégrés au build)
+├── docker/                    # Script de téléchargement des modèles au build
 ├── backend/                   # API FastAPI
 │   ├── main.py                # Point d'entrée, routes chat / chats / santé
 │   ├── manage.py              # Gestion des comptes en ligne de commande
@@ -83,7 +87,7 @@ behave-chatbot/
 │   ├── eval_set.yaml          # Questions annotées (emplacement attendu)
 │   ├── run_eval.py            # Métriques, calibration du seuil, latence
 │   └── results.md             # Derniers résultats
-├── frontend/                  # Application React
+├── frontend/                  # Application React (+ Dockerfile et nginx.conf)
 └── data/
     ├── manifest.yaml          # Module / titre de chaque document
     ├── documents/             # Documentation BeHave source (non versionné)
@@ -98,7 +102,50 @@ behave-chatbot/
 - PostgreSQL (instance locale ou distante)
 - Une clé API Groq (https://console.groq.com)
 
-## Installation
+## Déploiement avec Docker (recommandé)
+
+Prérequis : Docker Desktop (ou Docker Engine + Compose v2).
+
+```
+navigateur ──► frontend (nginx, port 8080) ──► /api/* ──► api (FastAPI + RAG) ──► db (PostgreSQL)
+                                                             └── volume ./data (documents, manifeste, index)
+```
+
+1. Configurer `.env` à la racine (voir `.env.example`) : `JWT_SECRET_KEY`,
+   `GROQ_API_KEY` et `POSTGRES_PASSWORD` sont obligatoires. Dans Docker,
+   `DATABASE_URL` et les chemins de données sont fixés par `docker-compose.yml`.
+2. Placer les guides dans `data/documents/` et les déclarer dans `data/manifest.yaml`.
+3. Construire et démarrer (premier build : ~10-20 min, les modèles
+   d'embedding et de reranking sont intégrés à l'image) :
+
+   ```powershell
+   docker compose up -d --build
+   ```
+
+   Les migrations Alembic sont appliquées automatiquement au démarrage de l'API.
+4. Indexer la documentation :
+
+   ```powershell
+   docker compose run --rm api python -m ingestion.run_indexation --reset
+   docker compose restart api
+   ```
+5. Créer le premier compte administrateur (base neuve) :
+
+   ```powershell
+   docker compose exec api python -m backend.manage create-user --username admin --role admin
+   ```
+
+Application : http://localhost:8080 — documentation de l'API : http://localhost:8080/api/docs.
+Si le port 8080 est déjà pris, définir `FRONTEND_PORT` dans `.env` (ex. `FRONTEND_PORT=8081`).
+
+| Besoin | Commande |
+|---|---|
+| Logs de l'API | `docker compose logs -f api` |
+| Arrêter | `docker compose down` (les données PostgreSQL sont conservées dans le volume `pgdata`) |
+| Tout supprimer, base comprise | `docker compose down -v` |
+| Mettre à jour après modification du code | `docker compose up -d --build` |
+
+## Installation locale (développement)
 
 Toutes les commandes Python s'exécutent **depuis la racine du projet**.
 

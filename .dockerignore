@@ -1,0 +1,14 @@
+# Jamais dans l'image : secrets, données (montées en volume), environnements locaux.
+.env
+backup_*.sql
+data/
+venv/
+.venv/
+frontend/
+.git/
+.vscode/
+.idea/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+.ruff_cache/
